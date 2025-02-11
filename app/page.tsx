@@ -4,8 +4,8 @@ import dynamic from "next/dynamic";
 import Markdown from "react-markdown";
 import rehypeHighlight from "rehype-highlight";
 import "highlight.js/styles/github-dark.css";
+import Prism from "prismjs"; // ✅ Use import instead of require
 
-// Dynamically import the Editor component to avoid SSR issues
 const Editor = dynamic(() => import("react-simple-code-editor"), { ssr: false });
 
 export default function Home() {
@@ -16,7 +16,7 @@ export default function Home() {
 
     async function reviewCode() {
         try {
-            const response = await fetch("/api/get-review", {
+            const response = await fetch("/api/review", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
@@ -45,9 +45,7 @@ export default function Home() {
                     <Editor
                         value={code}
                         onValueChange={(code) => setCode(code)}
-                        highlight={(code) =>
-                            require("prismjs").highlight(code, require("prismjs").languages.javascript, "javascript")
-                        }
+                        highlight={(code) => Prism.highlight(code, Prism.languages.javascript, "javascript")}
                         padding={10}
                         style={{
                             fontFamily: '"Fira code", "Fira Mono", monospace',
