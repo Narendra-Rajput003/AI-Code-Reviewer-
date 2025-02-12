@@ -4,7 +4,7 @@ import dynamic from "next/dynamic";
 import Markdown from "react-markdown";
 import rehypeHighlight from "rehype-highlight";
 import "highlight.js/styles/github-dark.css";
-import Prism from "prismjs"; // ✅ Use import instead of require
+import Prism from "prismjs"; 
 
 const Editor = dynamic(() => import("react-simple-code-editor"), { ssr: false });
 
@@ -16,7 +16,7 @@ export default function Home() {
 
     async function reviewCode() {
         try {
-            const response = await fetch("/api/review", {
+            const response = await fetch("/api/get-review", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
